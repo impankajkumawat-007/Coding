@@ -1,0 +1,25 @@
+/**
+ * Given an array arr[] of n integers and a target value, check if there exists a pair whose sum equals the target.
+ */
+
+fun main() {
+	checkForTargetSubarray(6, mutableListOf(5,3,2,6,4,7))
+}
+
+fun checkForTargetSubarray(target: Int, list: MutableList<Int>) {
+    val hashSet = HashSet<Int>()
+    var isSubArrayFound = false
+    for (item in list) {
+        val result = target - item
+        if (hashSet.contains(result)) {
+            isSubArrayFound = true
+            System.out.println("Target Subarray elements are - $result and $item")
+            break;
+        } else {
+            hashSet.add(item)
+        }
+    }
+    if (!isSubArrayFound) {
+        System.out.println("Target Subarray elements not found!!")
+    }
+}
