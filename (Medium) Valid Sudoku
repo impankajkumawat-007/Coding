@@ -1,0 +1,65 @@
+https://neetcode.io/problems/valid-sudoku/question
+
+You are given a 9 x 9 Sudoku board board. A Sudoku board is valid if the following rules are followed:
+
+Each row must contain the digits 1-9 without duplicates.
+Each column must contain the digits 1-9 without duplicates.
+Each of the nine 3 x 3 sub-boxes of the grid must contain the digits 1-9 without duplicates.
+Return true if the Sudoku board is valid, otherwise return false
+
+Note: A board does not need to be full or be solvable to be valid.
+
+Example 1:
+
+Input: board =
+[["1","2",".",".","3",".",".",".","."],
+ ["4",".",".","5",".",".",".",".","."],
+ [".","9","8",".",".",".",".",".","3"],
+ ["5",".",".",".","6",".",".",".","4"],
+ [".",".",".","8",".","3",".",".","5"],
+ ["7",".",".",".","2",".",".",".","6"],
+ [".",".",".",".",".",".","2",".","."],
+ [".",".",".","4","1","9",".",".","8"],
+ [".",".",".",".","8",".",".","7","9"]]
+
+Output: true
+Example 2:
+
+Input: board =
+[["1","2",".",".","3",".",".",".","."],
+ ["4",".",".","5",".",".",".",".","."],
+ [".","9","1",".",".",".",".",".","3"],
+ ["5",".",".",".","6",".",".",".","4"],
+ [".",".",".","8",".","3",".",".","5"],
+ ["7",".",".",".","2",".",".",".","6"],
+ [".",".",".",".",".",".","2",".","."],
+ [".",".",".","4","1","9",".",".","8"],
+ [".",".",".",".","8",".",".","7","9"]]
+
+Output: false
+
+
+
+class Solution {
+    fun isValidSudoku(board: Array<CharArray>): Boolean {
+        val row = Array(9) {HashSet<Char>()} // Array should initialise with hashset to have unique char
+        val col = Array(9) {HashSet<Char>()}
+        val box = Array(9) {HashSet<Char>()}
+        for (i in 0 until 9) {
+            for (j in 0 until 9) {
+                val cell = board[i][j]
+                if (cell == '.') continue
+                
+                val boxIndex = (i/3) * 3 + (j/3)
+                // cell need to check with all the hashmap whether the cell char is present or not
+                if (cell in row[i] || cell in col[j] || cell in box[boxIndex]) {
+                    return false
+                } 
+                row[i].add(cell)
+                col[j].add(cell)
+                box[boxIndex].add(cell)
+            }
+        } 
+        return true
+    }
+}
