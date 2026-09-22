@@ -1,0 +1,43 @@
+https://neetcode.io/problems/is-anagram/question 
+
+Given two strings s and t, return true if the two strings are anagrams of each other, otherwise return false.
+
+Two strings are anagrams if they contain the same characters, with each character appearing the same number of times, regardless of order.
+
+
+Example 1:
+
+Input: s = "racecar", t = "carrace"
+
+Output: true
+
+Example 2:
+
+Input: s = "jar", t = "jam"
+
+Output: false
+
+Example 3:
+
+Input: s = "x", t = "x"
+
+Output: true
+
+
+
+class Solution {
+    fun isAnagram(s: String, t: String): Boolean {
+        if (s.length != t.length) return false
+        if (s.length == 1) {
+            return s == t
+        }
+        val counts = IntArray(26)
+        for (c in s) counts[c - 'a']++
+        for (c in t) {
+            val i = c - 'a'
+            if (counts[i] == 0) return false
+            counts[i]--
+        }
+        return true
+    }
+}
