@@ -1,0 +1,15 @@
+https://neetcode.io/problems/anagram-groups/question (Arrays, HashTable, String, Sorting)
+
+class Solution {
+    fun groupAnagrams(strs: Array<String>): List<List<String>> {
+        val map = HashMap<List<Int>, MutableList<String>>()
+        for (s in strs) {
+            val count = MutableList(26) {0}
+            for (c in s) {
+                count[c - 'a']++  // count is a integer list where it will add number based on the character 'c'. (c-'a') giving that character ASCII code/numnber
+            }
+            map.getOrPut(count) {mutableListOf() }.add(s)  // This will check if count is present in map or not. If not then it will create new list else add it
+        }
+        return map.values.toList()
+    }
+}
