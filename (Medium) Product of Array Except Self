@@ -1,0 +1,50 @@
+Products of Array Except Self
+https://neetcode.io/problems/products-of-array-discluding-self/question
+
+Given an integer array nums, return an array output where output[i] is the product of all the elements of nums except nums[i].
+
+Each product is guaranteed to fit in a 32-bit integer.
+
+Follow-up: Could you solve it in 
+O
+(
+n
+)
+O(n) time without using the division operation?
+
+Example 1:
+
+Input: nums = [1,2,4,6]
+
+Output: [48,24,12,8]
+Example 2:
+
+Input: nums = [-1,0,1,2,3]
+
+Output: [0,-6,0,0,0]
+
+
+class Solution {
+    fun productExceptSelf(nums: IntArray): IntArray {
+        val res = IntArray(nums.size) { 1 }
+        var prefix = 1
+        var zeroCount = 0
+        for (i in nums.indices) {
+            res[i] = prefix
+            prefix *= nums[i]
+            if (nums[i] == 0) {
+                zeroCount++
+            }
+        }
+        if (zeroCount >= 2){
+            return IntArray(nums.size) {0}
+        }
+
+        var postfix = 1
+        for (i in nums.size - 1 downTo 0) {
+            res[i] *= postfix
+            postfix *= nums[i]
+        }
+        return res
+    }
+}
